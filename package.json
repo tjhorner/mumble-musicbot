@@ -6,6 +6,7 @@
   "author": "TJ Horner <me@tjhorner.com>",
   "license": "ISC",
   "dependencies": {
+    "irc": "^0.4.0",
     "lame": "^1.2.3",
     "mumble": "^0.3.7",
     "request": "^2.67.0"

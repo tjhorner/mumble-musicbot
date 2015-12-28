@@ -7,6 +7,12 @@
     "server": "[the server you want to connect to (e.g. mumble://mumble.horner.tj)]",
     "username": "[the username of the bot]"
   },
+  "twitch": {
+    "enable": false,
+    "channel": "[the channels you want to join]",
+    "nick": "[the bot's nick]",
+    "token": "[your twitch oauth token]"
+  },
   "admins": [
     "[an array]",
     "[of usernames]",

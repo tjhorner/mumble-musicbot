@@ -2,7 +2,7 @@ var lame = require('lame'),
     request = require('request'),
     config = require('./config.json'),
     admins = config.admins,
-    pause = require('pause');
+    irc = require('irc');
 
 var currentSong = {
   info: {
@@ -14,9 +14,42 @@ var currentSong = {
   playing: false
 };
 
+var monstercatMode = false;
+
 var playlist = [ ];
 
 module.exports = function(bot, soundcloud, mumble){
+  if(config.twitch.enable){
+    var twitchIrc = new irc.Client("irc.twitch.tv", config.twitch.nick, {
+      channels: [config.twitch.channel],
+      password: config.twitch.token
+    });
+
+    twitchIrc.addListener("message", function (fromUser, toChannel, message) {
+      if(monstercatMode && fromUser.toLowerCase() === "monstercat"){
+        request("https://api.soundcloud.com/tracks.json", {
+          qs: {
+            q: message.substr(13).split("-")[0] + " monstercat", // to make sure we're getting it from the monstercat profile
+            filter: "streamable",
+            client_id: config.soundcloud.id
+          }
+        }, function(err, res, body){
+          var res = JSON.parse(body);
+          if(res.length === 0){
+            mumble.user.channel.sendMessage("The Monstercat stream started playing a new song but I couldn't find it. RIP.");
+          }else{
+            mumble.user.channel.sendMessage("Added <b>" + res[0].title + "</b> to the playlist (via Monstercat mode).");
+            playlist.push({
+              id: res[0].id,
+              username: "Monstercat Stream"
+            });
+            if(!currentSong.playing) playNext();
+          }
+        });
+      }
+    });
+  }
+
   function playNext(){
     if(playlist.length > 0){
       var songId = playlist[0].id;
@@ -76,25 +109,29 @@ module.exports = function(bot, soundcloud, mumble){
   }
 
   bot.addCommand("!request", "Request a song", function(msg, args, channel, user){
-    request("https://api.soundcloud.com/tracks.json", {
-      qs: {
-        q: msg,
-        filter: "streamable",
-        client_id: config.soundcloud.id
-      }
-    }, function(err, res, body){
-      var res = JSON.parse(body);
-      if(res.length === 0){
-        user.sendMessage("Sorry, I couldn't find any tracks matching that :(");
-      }else{
-        user.sendMessage("Added <b>" + res[0].title + "</b> to the playlist.");
-        playlist.push({
-          id: res[0].id,
-          username: user.name
-        });
-        if(!currentSong.playing) playNext();
-      }
-    });
+    if(!monstercatMode){
+      request("https://api.soundcloud.com/tracks.json", {
+        qs: {
+          q: msg,
+          filter: "streamable",
+          client_id: config.soundcloud.id
+        }
+      }, function(err, res, body){
+        var res = JSON.parse(body);
+        if(res.length === 0){
+          user.sendMessage("Sorry, I couldn't find any tracks matching that :(");
+        }else{
+          user.sendMessage("Added <b>" + res[0].title + "</b> to the playlist.");
+          playlist.push({
+            id: res[0].id,
+            username: user.name
+          });
+          if(!currentSong.playing) playNext();
+        }
+      });
+    }else{
+      user.sendMessage("I can't take song requests while in Monstercat mode.");
+    }
   });
 
   bot.addCommand("!stop", "Stop the song and go to the next one if available", function(msg, args, channel, user){
@@ -109,6 +146,32 @@ module.exports = function(bot, soundcloud, mumble){
       playlist = [];
       currentSong.stream.end();
       currentSong.playing = false;
+    }
+  });
+
+  bot.addCommand("!monstercat", "Toggle Monstercat mode", function(msg, args, channel, user){
+    if(admins.indexOf(user.name) !== -1){
+      if(config.twitch.enable){
+        if(monstercatMode){
+          if(currentSong.stream && currentSong.playing){
+            playlist = [];
+            currentSong.stream.end();
+            currentSong.playing = false;
+          }
+          monstercatMode = false;
+          channel.sendMessage("<b>" + user.name + "</b> has disabled Monstercat mode.");
+        }else{
+          if(currentSong.stream && currentSong.playing){
+            playlist = [];
+            currentSong.stream.end();
+            currentSong.playing = false;
+          }
+          monstercatMode = true;
+          channel.sendMessage("<b>" + user.name + "</b> has enabled Monstercat mode.");
+        }
+      }else{
+        user.sendMessage("Please enable Monstercat mode before using this command. ")
+      }
     }
   });
 }

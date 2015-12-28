@@ -26,6 +26,11 @@ Copy `config.default.json` to `config.json`. Set up those values accordingly.
 - `mumble`
   - `server` - The server you want the bot to connect to
   - `username` - The username you want the bot to have
+- `twitch`
+  - `enable` - Enable Monstercat mode ([explained below](#Setting_up_Monstercat_mode))
+  - `channel` - The channel you want the bot to join
+  - `nick` - The bot's nick
+  - `token` -The bot's Twitch OAuth2 token
 - `admins` - An array of usernames that you want to be able to use admin-level commands
 
 ### Step 2: Generate certificate
@@ -45,3 +50,11 @@ Follow the steps from that command and you're done. You can fill in whatever you
 That's all you need to do to get the bot configured. Now it's time to actually run it. Use `node index` to start the bot. By default, it will look for a channel called "Music" in the root and join it. I'll add a configuration option later maybe.
 
 As for hosting, that's your problem ;)
+
+## Setting up Monstercat mode
+
+This bot includes a mode to get a constant stream of Monstercat music (from their Twitch stream). If you want to enable this mode, you'll need a Twitch OAuth2 token from [here](http://www.twitchapps.com/tmi/). Make your bot join the `#Monstercat` channel by setting `channel` in the config to `"#Monstercat"`. Then set the `enable` variable to `true` to enable Monstercat mode. Now whenever a new song plays on the Monstercat Twitch stream, it will look that song up and add it to the playlist.
+
+To enable/disable it, simply type `!monstercat` to the bot.
+
+Oh, it also disables requesting songs so people can't override the stream playlist.
