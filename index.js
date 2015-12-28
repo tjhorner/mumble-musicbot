@@ -8,8 +8,6 @@ var Mumble = require('mumble'),
     fs = require('fs'),
     bot = require("./bot")();
 
-var soundcloud = new SoundcloudClient(config.soundcloud.id, config.soundcloud.secret);
-
 if(config.useEnv){
   var mumbleCert = process.env.cert;
   var mumbleKey = process.env.key;
