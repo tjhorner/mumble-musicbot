@@ -23,7 +23,7 @@ var monstercatMode = false;
 
 var playlist = [ ];
 
-module.exports = function(bot, soundcloud, mumble){
+module.exports = function(bot, mumble){
   if(config.twitch.enable){
     var twitchIrc = new irc.Client("irc.twitch.tv", config.twitch.nick, {
       channels: [config.twitch.channel],

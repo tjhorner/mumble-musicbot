@@ -48,5 +48,5 @@ Mumble.connect(config.mumble.server, {
     // channel.sendMessage("no");
   });
 
-  require('./commands')(bot, soundcloud, conn);
+  require('./commands')(bot, conn);
 });
