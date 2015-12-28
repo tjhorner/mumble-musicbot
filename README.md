@@ -12,6 +12,10 @@ This bot plays music from SoundCloud on Mumble. It's not really feature packed l
 
 So you want Musicbot on your own server, eh? Follow these steps and you'll be up in no time.
 
+### Step 0: Zero-indexed arrays are cool!
+
+First, you'll want to `npm install` to get all of the dependencies.
+
 ### Step 1: `config.json`
 
 Copy `config.default.json` to `config.json`. Set up those values accordingly.
