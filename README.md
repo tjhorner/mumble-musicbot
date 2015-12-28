@@ -2,7 +2,7 @@
 
 This bot plays music from SoundCloud on Mumble. It's not really feature packed like MumbleDJ quite yet, but it has a few basic commands that will be substantial for the time being.
 
-**Musicbot is probably live on my server [here](mumble://mumble.horner.tj).**
+**Musicbot is probably live on my server [here](http://mumble.horner.tj/#join).**
 
 ## Commands
 
