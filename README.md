@@ -2,6 +2,8 @@
 
 This bot plays music from SoundCloud on Mumble. It's not really feature packed like MumbleDJ quite yet, but it has a few basic commands that will be substantial for the time being.
 
+**Musicbot is probably live on my server [here](mumble://mumble.horner.tj).**
+
 ## Commands
 
 - `!request [song]` - The `song` parameter will be searched for on SoundCloud and, if found, will be added to the bot's playlist.
