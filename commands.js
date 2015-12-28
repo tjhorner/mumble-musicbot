@@ -1,6 +1,11 @@
+try{
+  var config = require('./config.json');
+}catch(e){
+  var config = JSON.parse(process.env.config);
+}
+
 var lame = require('lame'),
     request = require('request'),
-    config = require('./config.json'),
     admins = config.admins,
     irc = require('irc');
 

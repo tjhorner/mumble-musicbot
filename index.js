@@ -1,5 +1,10 @@
-var config = require('./config.json'),
-    Mumble = require('mumble'),
+try{
+  var config = require('./config.json');
+}catch(e){
+  var config = JSON.parse(process.env.config);
+}
+
+var Mumble = require('mumble'),
     SoundcloudClient = require('soundcloud-node'),
     fs = require('fs'),
     bot = require("./bot")();
