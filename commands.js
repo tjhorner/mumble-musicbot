@@ -85,9 +85,9 @@ module.exports = function(bot, soundcloud, mumble){
     }, function(err, res, body){
       var res = JSON.parse(body);
       if(res.length === 0){
-        channel.sendMessage("Sorry, I couldn't find any tracks matching that :(");
+        user.sendMessage("Sorry, I couldn't find any tracks matching that :(");
       }else{
-        channel.sendMessage("Added <b>" + res[0].title + "</b> to the playlist.");
+        user.sendMessage("Added <b>" + res[0].title + "</b> to the playlist.");
         playlist.push({
           id: res[0].id,
           username: user.name
