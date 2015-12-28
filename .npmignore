@@ -1,0 +1,11 @@
+# temporary files
+temp/
+!temp/.gitkeep
+
+# configuration files
+cert/
+!cert/.gitkeep
+config.json
+
+# files that just shouldn't be checked into npm
+node_modules/

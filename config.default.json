@@ -1,0 +1,17 @@
+{
+  "soundcloud": {
+    "id": "[souncloud client id]",
+    "secret": "[soundcloud client secret (optional, but may be required in the future)]"
+  },
+  "mumble": {
+    "server": "[the server you want to connect to (e.g. mumble://mumble.horner.tj)]",
+    "username": "[the username of the bot]"
+  },
+  "admins": [
+    "[an array]",
+    "[of usernames]",
+    "[that you want]",
+    "[to be able to execute]",
+    "[admin commands]"
+  ]
+}
