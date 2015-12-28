@@ -5,7 +5,6 @@ try{
 }
 
 var Mumble = require('mumble'),
-    SoundcloudClient = require('soundcloud-node'),
     fs = require('fs'),
     bot = require("./bot")();
 
