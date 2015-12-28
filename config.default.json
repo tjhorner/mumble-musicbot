@@ -19,5 +19,6 @@
     "[that you want]",
     "[to be able to execute]",
     "[admin commands]"
-  ]
+  ],
+  "useEnv": false
 }

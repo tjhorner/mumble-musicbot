@@ -11,9 +11,17 @@ var Mumble = require('mumble'),
 
 var soundcloud = new SoundcloudClient(config.soundcloud.id, config.soundcloud.secret);
 
+if(config.useEnv){
+  var mumbleCert = process.env.cert;
+  var mumbleKey = process.env.key;
+}else{
+  var mumbleCert = fs.readFileSync("./cert/cert.pem");
+  var mumbleKey = fs.readFileSync("./cert/key.pem");
+}
+
 Mumble.connect(config.mumble.server, {
-  cert: fs.readFileSync("./cert/cert.pem"),
-  key: fs.readFileSync("./cert/key.pem")
+  cert: mumbleCert,
+  key: mumbleKey
 }, function(err, conn){
   conn.authenticate(config.mumble.username);
 
