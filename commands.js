@@ -170,7 +170,7 @@ module.exports = function(bot, soundcloud, mumble){
           channel.sendMessage("<b>" + user.name + "</b> has enabled Monstercat mode.");
         }
       }else{
-        user.sendMessage("Please enable Monstercat mode before using this command. ")
+        user.sendMessage("Please enable Monstercat mode before using this command. Please check <a href='horner.tj/p/mumble-musicbot'>the GitHub page</a> for more details.");
       }
     }
   });

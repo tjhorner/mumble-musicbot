@@ -1,6 +1,6 @@
 {
   "name": "musicbot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A bot that plays music from SoundCloud in Mumble.",
   "main": "index.js",
   "author": "TJ Horner <me@tjhorner.com>",
